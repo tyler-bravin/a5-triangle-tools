@@ -1,7 +1,7 @@
 /*
  * @(#)SubscriptVname.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -22,6 +22,9 @@ import triangle.abstractSyntaxTrees.expressions.Expression;
 import triangle.abstractSyntaxTrees.visitors.VnameVisitor;
 import triangle.syntacticAnalyzer.SourcePosition;
 
+/**
+ * a value-or-variable name for an array, with an index, e.g. a[4]  (a is the vAST, 4 is the eAST) 
+ */
 public class SubscriptVname extends Vname {
 
 	public SubscriptVname(Vname vAST, Expression eAST, SourcePosition position) {

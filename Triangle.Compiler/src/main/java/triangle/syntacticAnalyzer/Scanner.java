@@ -1,7 +1,7 @@
 /*
  * @(#)Scanner.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -88,7 +88,7 @@ public final class Scanner {
 		}
 	}
 
-	private int scanToken() {
+	private Token.Kind scanToken() {
 
 		switch (currentChar) {
 
@@ -147,7 +147,7 @@ public final class Scanner {
 			takeIt();
 			while (isLetter(currentChar) || isDigit(currentChar))
 				takeIt();
-			return Token.IDENTIFIER;
+			return Token.Kind.IDENTIFIER;
 
 		case '0':
 		case '1':
@@ -162,7 +162,7 @@ public final class Scanner {
 			takeIt();
 			while (isDigit(currentChar))
 				takeIt();
-			return Token.INTLITERAL;
+			return Token.Kind.INTLITERAL;
 
 		case '+':
 		case '-':
@@ -180,78 +180,78 @@ public final class Scanner {
 			takeIt();
 			while (isOperator(currentChar))
 				takeIt();
-			return Token.OPERATOR;
+			return Token.Kind.OPERATOR;
 
 		case '\'':
 			takeIt();
 			takeIt(); // the quoted character
 			if (currentChar == '\'') {
 				takeIt();
-				return Token.CHARLITERAL;
+				return Token.Kind.CHARLITERAL;
 			} else
-				return Token.ERROR;
+				return Token.Kind.ERROR;
 
 		case '.':
 			takeIt();
-			return Token.DOT;
+			return Token.Kind.DOT;
 
 		case ':':
 			takeIt();
 			if (currentChar == '=') {
 				takeIt();
-				return Token.BECOMES;
+				return Token.Kind.BECOMES;
 			} else
-				return Token.COLON;
+				return Token.Kind.COLON;
 
 		case ';':
 			takeIt();
-			return Token.SEMICOLON;
+			return Token.Kind.SEMICOLON;
 
 		case ',':
 			takeIt();
-			return Token.COMMA;
+			return Token.Kind.COMMA;
 
 		case '~':
 			takeIt();
-			return Token.IS;
+			return Token.Kind.IS;
 
 		case '(':
 			takeIt();
-			return Token.LPAREN;
+			return Token.Kind.LPAREN;
 
 		case ')':
 			takeIt();
-			return Token.RPAREN;
+			return Token.Kind.RPAREN;
 
 		case '[':
 			takeIt();
-			return Token.LBRACKET;
+			return Token.Kind.LBRACKET;
 
 		case ']':
 			takeIt();
-			return Token.RBRACKET;
+			return Token.Kind.RBRACKET;
 
 		case '{':
 			takeIt();
-			return Token.LCURLY;
+			return Token.Kind.LCURLY;
 
 		case '}':
 			takeIt();
-			return Token.RCURLY;
+			return Token.Kind.RCURLY;
 
 		case SourceFile.EOT:
-			return Token.EOT;
+			return Token.Kind.EOT;
 
 		default:
 			takeIt();
-			return Token.ERROR;
+			return Token.Kind.ERROR;
 		}
 	}
 
 	public Token scan() {
 		Token tok;
 		SourcePosition pos;
-		int kind;
+		Token.Kind kind;
 
 		currentlyScanningToken = false;
 		// skip any whitespace or comments
