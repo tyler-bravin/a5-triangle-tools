@@ -112,6 +112,9 @@ public class Parser {
 		}
 	}
 
+	// acceptIt simply moves to the next token with no checking
+	// (used where we've already done the check)
+	
 	void acceptIt() {
 		previousTokenPosition = currentToken.position;
 		currentToken = lexicalAnalyser.scan();

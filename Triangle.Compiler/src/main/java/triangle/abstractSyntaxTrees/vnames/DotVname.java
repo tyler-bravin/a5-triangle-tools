@@ -23,7 +23,8 @@ import triangle.abstractSyntaxTrees.visitors.VnameVisitor;
 import triangle.syntacticAnalyzer.SourcePosition;
 
 /**
- * Value (constant) or variable names including a sub-parts separated by dots. Example: fruitbox.applecount (fruitbox is a record, containing a variable applecount)
+ * Value (constant) or variable names including a sub-parts separated by dots. 
+ * Example: fruitbox.applecount (fruitbox is a record, containing a variable applecount)
  */
 public class DotVname extends Vname {
 
