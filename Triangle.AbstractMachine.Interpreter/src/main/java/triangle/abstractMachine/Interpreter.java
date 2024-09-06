@@ -418,6 +418,7 @@ public class Interpreter {
 			System.out.println("");
 			break;
 		case GETINT:
+			System.out.println("enter int: ");
 			ST = ST - 1;
 			addr = data[ST];
 			try {

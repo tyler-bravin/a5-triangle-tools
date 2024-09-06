@@ -1,7 +1,7 @@
 /*
  * @(#)Token.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -18,40 +18,28 @@
 
 package triangle.syntacticAnalyzer;
 
-final class Token extends Object {
+final class Token {
 
-	protected int kind;
+	protected Kind kind;
 	protected String spelling;
 	protected SourcePosition position;
 
-	public Token(int kind, String spelling, SourcePosition position) {
+	public Token(Kind kind, String spelling, SourcePosition position) {
 
-		if (kind == Token.IDENTIFIER) {
-			int currentKind = firstReservedWord;
-			boolean searching = true;
-
-			while (searching) {
-				int comparison = tokenTable[currentKind].compareTo(spelling);
-				if (comparison == 0) {
-					this.kind = currentKind;
-					searching = false;
-				} else if (comparison > 0 || currentKind == lastReservedWord) {
-					this.kind = Token.IDENTIFIER;
-					searching = false;
-				} else {
-					currentKind++;
-				}
-			}
-		} else
+		// If this token is an identifier, is it also a reserved word?
+		if (kind == Kind.IDENTIFIER) {
+			this.kind = Kind.fromSpelling(spelling);
+		} else {
 			this.kind = kind;
+		}
 
 		this.spelling = spelling;
 		this.position = position;
 
 	}
 
-	public static String spell(int kind) {
-		return tokenTable[kind];
+	public static String spell(Kind kind) {
+		return kind.spelling;
 	}
 
 	@Override
@@ -61,28 +49,56 @@ final class Token extends Object {
 
 	// Token classes...
 
-	public static final int
+	public enum Kind {
+		// literals, identifiers, operators...
+		INTLITERAL("<int>"), CHARLITERAL("<char>"), IDENTIFIER("<identifier>"), OPERATOR("<operator>"),
 
-	// literals, identifiers, operators...
-	INTLITERAL = 0, CHARLITERAL = 1, IDENTIFIER = 2, OPERATOR = 3,
+		// reserved words - keep in alphabetical order for ease of maintenance...
+		ARRAY("array"), BEGIN("begin"), CONST("const"), DO("do"), ELSE("else"), END("end"), FUNC("func"), IF("if"), IN("in"), LET("let"), OF("of"),
+		PROC("proc"), RECORD("record"), THEN("then"), TYPE("type"), VAR("var"), WHILE("while"),
 
-			// reserved words - must be in alphabetical order...
-			ARRAY = 4, BEGIN = 5, CONST = 6, DO = 7, ELSE = 8, END = 9, FUNC = 10, IF = 11, IN = 12, LET = 13, OF = 14,
-			PROC = 15, RECORD = 16, THEN = 17, TYPE = 18, VAR = 19, WHILE = 20,
+		// punctuation...
+		DOT("."), COLON(":"), SEMICOLON(";"), COMMA(","), BECOMES(":="), IS("~"),
 
-			// punctuation...
-			DOT = 21, COLON = 22, SEMICOLON = 23, COMMA = 24, BECOMES = 25, IS = 26,
+		// brackets...
+		LPAREN("("), RPAREN(")"), LBRACKET("["), RBRACKET("]"), LCURLY("{"), RCURLY("}"),
 
-			// brackets...
-			LPAREN = 27, RPAREN = 28, LBRACKET = 29, RBRACKET = 30, LCURLY = 31, RCURLY = 32,
-
-			// special tokens...
-			EOT = 33, ERROR = 34;
-
-	private static String[] tokenTable = new String[] { "<int>", "<char>", "<identifier>", "<operator>", "array",
-			"begin", "const", "do", "else", "end", "func", "if", "in", "let", "of", "proc", "record", "then", "type",
-			"var", "while", ".", ":", ";", ",", ":=", "~", "(", ")", "[", "]", "{", "}", "", "<error>" };
-
-	private final static int firstReservedWord = Token.ARRAY, lastReservedWord = Token.WHILE;
+		// special tokens...
+		EOT(""), ERROR("<error>");
+		
+	    public final String spelling;
+		
+	    private Kind(String spelling) {
+	        this.spelling = spelling;
+	    }
+	    
+	    /**
+	     * iterate over the reserved words above to find the one with a given spelling
+	     * need to specify firstReservedWord and lastReservedWord (inclusive) for this
+	     * to work!
+	     * 
+	     * @return Kind.IDENTIFIER if no matching token class found
+	     */
+	    public static Kind fromSpelling(String spelling) {
+	    	boolean isRW = false;
+	    	for (Kind kind: Kind.values()) {
+	    		if (kind == firstReservedWord) {
+	    			isRW = true;
+	    		}
+	    		
+	    		if (isRW && kind.spelling.equals(spelling)) {
+	    			return kind;
+	    		}
+	    		
+	    		if (kind == lastReservedWord) {
+	    			// if we get here, we've not found a match, so break and return failure
+	    			break;
+	    		}
+	    	}
+	    	return Kind.IDENTIFIER;
+	    }
+	    
+	    private final static Kind firstReservedWord = ARRAY, lastReservedWord = WHILE;
+	}
 
 }

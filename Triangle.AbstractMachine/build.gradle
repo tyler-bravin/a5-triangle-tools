@@ -1,4 +1,4 @@
 apply plugin: 'java-library'
 apply plugin: 'eclipse'
 
-sourceCompatibility = 11
+sourceCompatibility = 17

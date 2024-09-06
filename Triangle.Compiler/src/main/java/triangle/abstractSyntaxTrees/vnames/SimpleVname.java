@@ -1,7 +1,7 @@
 /*
  * @(#)SimpleVname.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -22,6 +22,9 @@ import triangle.abstractSyntaxTrees.terminals.Identifier;
 import triangle.abstractSyntaxTrees.visitors.VnameVisitor;
 import triangle.syntacticAnalyzer.SourcePosition;
 
+/**
+ * a value or variable name with no sub parts and no array index
+ */
 public class SimpleVname extends Vname {
 
 	public SimpleVname(Identifier iAST, SourcePosition position) {

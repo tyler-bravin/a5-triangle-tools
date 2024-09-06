@@ -1,7 +1,7 @@
 /*
  * @(#)Encoder.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -709,6 +709,13 @@ public final class Encoder implements ActualParameterVisitor<Frame, Integer>,
 		writeTableDetails(routineDeclaration);
 	}
 
+	/**
+	 * in the following we associate the primitive routines (Primitive.*)
+	 * and the primitive types (Machine.*) in the abstract machine with 
+	 * the relevant std env declarations. 
+	 * The primitive routines are listed in Table C3 (P411) of the PLPJ book, 
+	 * and Table 3 of the Triangle guide
+	 */
 	private final void elaborateStdEnvironment() {
 		tableDetailsReqd = false;
 		elaborateStdConst(StdEnvironment.falseDecl, Machine.falseRep);
@@ -742,6 +749,9 @@ public final class Encoder implements ActualParameterVisitor<Frame, Integer>,
 
 	boolean tableDetailsReqd;
 
+	/**
+	 * called by all visitor methods here; could be used to insert debugging information
+	 */
 	public static void writeTableDetails(AbstractSyntaxTree ast) {
 	}
 

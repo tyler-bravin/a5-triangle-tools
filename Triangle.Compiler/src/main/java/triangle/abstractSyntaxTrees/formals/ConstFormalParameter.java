@@ -1,7 +1,7 @@
 /*
  * @(#)ConstFormalParameter.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -43,8 +43,8 @@ public class ConstFormalParameter extends FormalParameter implements ConstantDec
 
 	@Override
 	public boolean equals(Object fpAST) {
-		if (fpAST instanceof ConstFormalParameter) {
-			return T.equals(((ConstFormalParameter)fpAST).T);
+		if (fpAST instanceof ConstFormalParameter cfpAST) {
+			return T.equals(cfpAST.T);
 		} else {
 			return false;
 		}

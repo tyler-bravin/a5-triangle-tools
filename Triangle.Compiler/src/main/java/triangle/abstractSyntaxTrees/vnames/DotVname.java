@@ -1,7 +1,7 @@
 /*
  * @(#)DotVname.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -22,6 +22,10 @@ import triangle.abstractSyntaxTrees.terminals.Identifier;
 import triangle.abstractSyntaxTrees.visitors.VnameVisitor;
 import triangle.syntacticAnalyzer.SourcePosition;
 
+/**
+ * Value (constant) or variable names including a sub-parts separated by dots. 
+ * Example: fruitbox.applecount (fruitbox is a record, containing a variable applecount)
+ */
 public class DotVname extends Vname {
 
 	public DotVname(Vname vAST, Identifier iAST, SourcePosition position) {

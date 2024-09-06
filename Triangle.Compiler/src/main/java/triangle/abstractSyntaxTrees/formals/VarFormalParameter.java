@@ -1,7 +1,7 @@
 /*
  * @(#)ValFormalParameter.java                       
  * 
- * Revisions and updates (c) 2022-2023 Sandy Brownlee. alexander.brownlee@stir.ac.uk
+ * Revisions and updates (c) 2022-2024 Sandy Brownlee. alexander.brownlee@stir.ac.uk
  * 
  * Original release:
  *
@@ -43,8 +43,8 @@ public class VarFormalParameter extends FormalParameter implements VariableDecla
 
 	@Override
 	public boolean equals(Object fpAST) {
-		if (fpAST instanceof VarFormalParameter) {
-			return T.equals(((VarFormalParameter)fpAST).T);
+		if (fpAST instanceof VarFormalParameter vfpAST) {
+			return T.equals(vfpAST.T);
 		} else {
 			return false;
 		}
