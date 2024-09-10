@@ -69,13 +69,14 @@ public final class Scanner {
 		switch (currentChar) {
 		
 		// comment
-		case '!': {
+		case '!': 
 			takeIt();
+			
+			// the comment ends when we reach an end-of-line (EOL) or end of file (EOT - for end-of-transmission)
 			while ((currentChar != SourceFile.EOL) && (currentChar != SourceFile.EOT))
 				takeIt();
 			if (currentChar == SourceFile.EOL)
 				takeIt();
-		}
 			break;
 
 		// whitespace
